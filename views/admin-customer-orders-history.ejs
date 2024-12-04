@@ -1,0 +1,14 @@
+<ul class="list-group">
+    <% if (orders.length > 0) { %>
+        <% orders.forEach(order => { %>
+            <li class="list-group-item">
+                <strong>Order ID:</strong> <%= order.order_id %> <br>
+                <strong>Total:</strong> $<%= order.total ? order.total.toFixed(2) : '0.00' %> <br>
+                <strong>Date:</strong> <%= new Date(order.created_at).toLocaleString() %>
+                <a href="/admin/orders/<%= order.order_id %>" class="btn btn-sm btn-primary float-end">View Details</a>
+            </li>
+        <% }) %>
+    <% } else { %>
+        <li class="list-group-item">No orders found for this customer.</li>
+    <% } %>
+</ul>

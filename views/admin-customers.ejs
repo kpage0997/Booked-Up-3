@@ -1,0 +1,9 @@
+<h1>Customers with Orders</h1>
+<ul class="list-group">
+    <% customers.forEach(customer => { %>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <%= customer.username %>
+            <a href="/admin/orders/customers/<%= customer.id %>" class="btn btn-primary btn-sm">View Orders</a>
+        </li>
+    <% }) %>
+</ul>

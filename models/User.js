@@ -6,8 +6,16 @@ class User {
         return db.prepare('SELECT * FROM users WHERE email = ? AND password = ?').get(email, password);
     }
 
-    static findById(id) {
-        return db.prepare('SELECT * FROM users WHERE id = ?').get(id);
+    static getAllUsersWithOrders() {
+        return db.prepare(`
+            SELECT DISTINCT u.id, u.username
+            FROM users u
+            JOIN orders o ON u.id = o.user_id
+        `).all();
+    }
+
+    static getUserById(userId) {
+        return db.prepare('SELECT * FROM users WHERE id = ?').get(userId);
     }
 }
 

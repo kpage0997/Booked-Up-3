@@ -1,4 +1,4 @@
-<%- include('partials/admin-nav') %> <!-- Include admin navigation -->
+
 
 <div class="container mt-4">
     <h1>Admin Dashboard</h1>
@@ -26,15 +26,28 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="card text-white bg-info mb-3">
-                <div class="card-header">Orders</div>
-                <div class="card-body">
-                    <h5 class="card-title">View Orders</h5>
-                    <p class="card-text">Track and manage customer orders.</p>
-                    <a href="/orders/history" class="btn btn-light">View Orders</a>
-                </div>
+        <!-- View Customer Orders -->
+    <div class="col-md-4">
+        <div class="card text-white bg-info mb-3">
+            <div class="card-header">Customer Orders</div>
+            <div class="card-body">
+                <h5 class="card-title">View Customer Orders</h5>
+                <p class="card-text">View and manage orders placed by customers.</p>
+                <a href="/admin/orders/customers" class="btn btn-light">View Orders</a>
             </div>
         </div>
+    </div>
+        <!-- Bulk Upload Books -->
+    <div class="col-md-4">
+        <div class="card text-white bg-warning mb-3">
+            <div class="card-header">Bulk Upload</div>
+            <div class="card-body">
+                <h5 class="card-title">Bulk Upload Books</h5>
+                <p class="card-text">Upload multiple books using a JSON file.</p>
+                <a href="/admin/bulk-upload" class="btn btn-light">Bulk Upload</a>
+            </div>
+        </div>
+    </div>
+        
     </div>
 </div>

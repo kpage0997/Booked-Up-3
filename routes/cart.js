@@ -35,16 +35,23 @@ router.post('/add', (req, res) => {
 // Confirm Checkout
 router.post('/checkout', (req, res) => {
     const userId = req.session.user?.id;
-    const cart = req.session.cart;
+    const cart = req.session.cart || [];
 
-    if (!userId) return res.status(401).send('You must be logged in to place an order.');
-    if (cart.length === 0) return res.status(400).send('Your cart is empty.');
+    if (!userId) {
+        req.flash('error', 'You must be logged in to place an order.');
+        return res.redirect('/auth/login');
+    }
+
+    if (cart.length === 0) {
+        req.flash('error', 'Your cart is empty.');
+        return res.redirect('/cart');
+    }
 
     try {
-        Order.placeOrder(userId, cart);
-        req.session.cart = [];
-        req.session.message = 'Order placed successfully!';
-        res.redirect('/orders/history');
+        const orderId = Order.placeOrder(userId, cart); // Capture the orderId
+        req.session.cart = []; // Clear the cart
+        req.flash('message', 'Order placed successfully!');
+        res.redirect(`/orders/confirmation/${orderId}`); // Pass orderId to the confirmation route
     } catch (error) {
         console.error('Error processing order:', error.message);
         res.status(500).send('An error occurred while placing the order.');

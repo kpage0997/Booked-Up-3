@@ -1,0 +1,29 @@
+<div class="container mt-5">
+    <h1 class="text-center text-success">Order Confirmed!</h1>
+    <p class="text-center">Thank you for your purchase. Your order ID is <strong><%= orderDetails[0].order_id %></strong>.</p>
+
+    <h2 class="mt-4">Order Details</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Book</th>
+                <th>Quantity</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% orderDetails.forEach(item => { %>
+                <tr>
+                    <td><%= item.title %></td>
+                    <td><%= item.quantity %></td>
+                    <td>$<%= item.price.toFixed(2) %></td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+
+    <h3 class="text-end">Total: $<%= orderDetails[0].total.toFixed(2) %></h3>
+    <div class="text-center mt-4">
+        <a href="/" class="btn btn-primary">Continue Shopping</a>
+    </div>
+</div>

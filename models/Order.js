@@ -5,8 +5,8 @@ class Order {
     // Create a new order
     static createOrder(userId, total) {
         return db
-            .prepare('INSERT INTO orders (user_id, total) VALUES (?, ?)')
-            .run(userId, total).lastInsertRowid;
+            .prepare('INSERT INTO orders (user_id, total, created_at) VALUES (?, ?, ?)')
+            .run(userId, total, new Date().toISOString()).lastInsertRowid;
     }
 
     // Add an item to an order
@@ -15,10 +15,16 @@ class Order {
             .run(orderId, bookId, quantity, price);
     }
 
-    // Get order history for a specific user
+    //Get order history for a specific user
     static getOrderHistory(userId) {
         return db.prepare(`
-            SELECT o.id AS order_id, o.created_at, b.title, oi.quantity, oi.price
+            SELECT 
+                o.id AS order_id, 
+                o.total, -- Include the total field
+                o.created_at, 
+                b.title, 
+                oi.quantity, 
+                oi.price
             FROM orders o
             JOIN order_items oi ON o.id = oi.order_id
             JOIN books b ON oi.book_id = b.id
@@ -58,6 +64,37 @@ class Order {
             JOIN users u ON o.user_id = u.id
             WHERE o.id = ?
         `).all(orderId);
+    }
+
+    // Place an order
+    static placeOrder(userId, cart) {
+        const insertOrder = db.prepare(`
+            INSERT INTO orders (user_id, total, created_at)
+            VALUES (?, ?, ?)
+        `);
+    
+        const insertOrderItem = db.prepare(`
+            INSERT INTO order_items (order_id, book_id, quantity, price)
+            VALUES (?, ?, ?, ?)
+        `);
+    
+        const transaction = db.transaction((userId, cart) => {
+            // Calculate total order cost
+            const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    
+            // Insert the order and get its ID
+            const result = insertOrder.run(userId, total, new Date().toISOString());
+            const orderId = result.lastInsertRowid;
+    
+            // Insert items for the order
+            cart.forEach(item => {
+                insertOrderItem.run(orderId, item.id, item.quantity, item.price);
+            });
+    
+            return orderId;
+        });
+    
+        return transaction(userId, cart);
     }
 }
 

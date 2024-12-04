@@ -14,6 +14,7 @@ const booksRouter = require('./routes/books');
 const cartRouter = require('./routes/cart');
 const ordersRouter = require('./routes/orders');
 const categoryRouter = require('./routes/categories'); // New category router
+const customerRouter = require('./routes/customers'); // Import the customer routes
 
 // Load environment variables
 dotenv.config();
@@ -37,8 +38,8 @@ app.use(flash());
 
 // Middleware to pass flash messages to views
 app.use((req, res, next) => {
-    res.locals.message = req.flash('message'); // Success messages
-    res.locals.error = req.flash('error');     // Error messages
+    res.locals.message = req.flash('message'); // Set success messages
+    res.locals.error = req.flash('error');     // Set error messages
     next();
 });
 
@@ -46,7 +47,9 @@ app.use((req, res, next) => {
 app.use((req, res, next) => {
     res.locals.user = req.session.user || null; // Add user to locals for all views
     res.locals.message = req.session.message || null;
-    delete req.session.message; // Clear session message after displaying
+     // Clear the session variables after displaying
+     delete req.session.message;
+     delete req.session.error;
     next();
 });
 
@@ -61,6 +64,7 @@ app.use('/books', booksRouter);
 app.use('/cart', cartRouter);
 app.use('/orders', ordersRouter);
 app.use('/categories', categoryRouter); // Use the category router
+app.use('/customers', customerRouter); // Use the customer routes
 
 // Home page
 app.get('/', (req, res) => {

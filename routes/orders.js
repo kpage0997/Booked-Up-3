@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Database = require('better-sqlite3');
+const Order = require('../models/Order');
 
 // Connect to the database
 const db = new Database('./database/bookedup3.db');
@@ -31,4 +32,21 @@ router.get('/history', ensureLoggedIn, (req, res) => {
         res.status(500).send('An error occurred while fetching your order history.');
     }
 });
+
+router.get('/confirmation/:orderId', (req, res) => {
+    const orderId = req.params.orderId;
+
+    try {
+        const orderDetails = Order.getOrderDetails(orderId); // Fetch order details
+        res.render('layout', {
+            view: 'order-confirmation',
+            orderDetails,
+            user: req.session.user,
+        });
+    } catch (error) {
+        console.error('Error fetching order confirmation details:', error.message);
+        res.status(500).send('Failed to load confirmation page.');
+    }
+});
+
 module.exports = router;
