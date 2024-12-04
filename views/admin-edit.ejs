@@ -1,0 +1,55 @@
+<%- include('partials/admin-nav') %> <!-- Include the navigation -->
+
+<div class="container mt-4">
+    <h2>Edit Product</h2>
+    <form action="/admin/books/edit/<%= product.id %>" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="existingImage" value="<%= product.image_url %>">
+        
+        <!-- Title -->
+        <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" class="form-control" id="title" name="title" value="<%= product.title %>" required />
+        </div>
+
+        <!-- Author -->
+        <div class="mb-3">
+            <label for="author" class="form-label">Author</label>
+            <input type="text" class="form-control" id="author" name="author" value="<%= product.author %>" required />
+        </div>
+
+        <!-- Category -->
+        <div class="mb-3">
+            <label for="category" class="form-label">Category</label>
+            <input type="text" class="form-control" id="category" name="category" value="<%= product.category %>" required />
+        </div>
+
+        <!-- Price -->
+        <div class="mb-3">
+            <label for="price" class="form-label">Price</label>
+            <input type="number" class="form-control" id="price" name="price" value="<%= product.price %>" step="0.01" required />
+        </div>
+
+        <!-- Description -->
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea class="form-control" id="description" name="description" rows="3" required><%= product.description %></textarea>
+        </div>
+
+        <!-- Current Image -->
+        <div class="mb-3">
+            <label for="existingImage" class="form-label">Current Image</label>
+            <div>
+                <img src="<%= product.image_url || '/images/default.jpg' %>" alt="<%= product.title %>" class="img-thumbnail" style="max-width: 200px;">
+            </div>
+        </div>
+
+        <!-- Update Image -->
+        <div class="mb-3">
+            <label for="image" class="form-label">Update Image</label>
+            <input type="file" class="form-control" id="image" name="image">
+        </div>
+
+        <!-- Submit -->
+        <button type="submit" class="btn btn-primary">Update Product</button>
+    </form>
+</div>

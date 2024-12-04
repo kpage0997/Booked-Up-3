@@ -1,0 +1,40 @@
+<%- include('partials/admin-nav') %> <!-- Include admin navigation -->
+
+<div class="container mt-4">
+    <h1>Admin Dashboard</h1>
+    <p>Welcome to the Admin Panel. Use the navigation bar to manage books, categories, and orders.</p>
+
+    <!-- Admin Overview Section -->
+    <div class="row mt-4">
+        <div class="col-md-4">
+            <div class="card text-white bg-primary mb-3">
+                <div class="card-header">Books</div>
+                <div class="card-body">
+                    <h5 class="card-title">Manage Books</h5>
+                    <p class="card-text">Add, edit, or delete books in your store.</p>
+                    <a href="/admin/books" class="btn btn-light">Manage Books</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-success mb-3">
+                <div class="card-header">Categories</div>
+                <div class="card-body">
+                    <h5 class="card-title">Manage Categories</h5>
+                    <p class="card-text">Add, edit, or delete book categories.</p>
+                    <a href="/admin/categories" class="btn btn-light">Manage Categories</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-info mb-3">
+                <div class="card-header">Orders</div>
+                <div class="card-body">
+                    <h5 class="card-title">View Orders</h5>
+                    <p class="card-text">Track and manage customer orders.</p>
+                    <a href="/orders/history" class="btn btn-light">View Orders</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

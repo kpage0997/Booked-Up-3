@@ -1,0 +1,41 @@
+<div class="container mt-4">
+    <h2>Checkout</h2>
+    <div class="row">
+        <div class="col-md-8">
+            <h4>Your Cart</h4>
+            <% if (cart.length === 0) { %>
+                <p>Your cart is empty.</p>
+            <% } else { %>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% cart.forEach(item => { %>
+                            <tr>
+                                <td><%= item.title %></td>
+                                <td><%= item.quantity %></td>
+                                <td>$<%= item.price.toFixed(2) %></td>
+                                <td>$<%= (item.price * item.quantity).toFixed(2) %></td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            <% } %>
+        </div>
+        <div class="col-md-4">
+            <h4>Order Summary</h4>
+            <p><strong>Total Cost:</strong> $<%= total.toFixed(2) %></p>
+            <% if (cart.length > 0) { %>
+                <form action="/cart/checkout" method="POST">
+                    <button type="submit" class="btn btn-success w-100">Confirm Order</button>
+                </form>
+            <% } %>
+        </div>
+    </div>
+</div>

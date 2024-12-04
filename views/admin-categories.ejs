@@ -1,0 +1,41 @@
+<%- include('partials/admin-nav') %> <!-- Include the navigation -->
+
+<div class="container mt-4">
+    <h2>Manage Categories</h2>
+
+    <!-- Add Category Form -->
+    <form action="/admin/categories/add" method="POST" class="mt-3">
+        <div class="mb-3">
+            <label for="name" class="form-label">Category Name</label>
+            <input type="text" id="name" name="name" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Add Category</button>
+    </form>
+
+    <!-- List of Categories -->
+    <h3 class="mt-5">Existing Categories</h3>
+    <table class="table table-bordered table-hover mt-3">
+        <thead class="table-light">
+            <tr>
+                <th>Category Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% categories.forEach(category => { %>
+                <tr>
+                    <td><%= category.name %></td>
+                    <td>
+                        <form action="/admin/categories/edit/<%= category.id %>" method="POST" style="display: inline;">
+                            <input type="text" name="name" value="<%= category.name %>" required class="form-control mb-2">
+                            <button type="submit" class="btn btn-warning btn-sm">Edit</button>
+                        </form>
+                        <form action="/admin/categories/delete/<%= category.id %>" method="POST" style="display: inline;">
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</div>

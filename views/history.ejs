@@ -1,0 +1,36 @@
+<div class="container mt-4">
+    <h2>Order History</h2>
+
+    <% if (message) { %>
+        <div class="alert alert-success">
+            <%= message %>
+        </div>
+    <% } %>
+
+    <% if (orders.length === 0) { %>
+        <p>You have not placed any orders yet.</p>
+    <% } else { %>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Book Title</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% orders.forEach(order => { %>
+                    <tr>
+                        <td><%= order.id %></td>
+                        <td><%= order.title %></td>
+                        <td><%= order.quantity %></td>
+                        <td>$<%= order.total.toFixed(2) %></td>
+                        <td><%= new Date(order.created_at).toLocaleString() %></td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    <% } %>
+</div>

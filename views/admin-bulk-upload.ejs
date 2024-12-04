@@ -1,0 +1,8 @@
+<h2>Bulk Upload Products</h2>
+<form action="/admin/bulk-upload" method="POST" enctype="multipart/form-data">
+    <div class="mb-3">
+        <label for="jsonFile" class="form-label">Upload JSON File</label>
+        <input type="file" name="jsonFile" id="jsonFile" class="form-control" accept=".json" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Upload</button>
+</form>

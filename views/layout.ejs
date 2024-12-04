@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookedUp</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS (optional) -->
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <header>
+        <%- include('partials/nav') %>
+    </header>
+
+    <main class="container my-4">
+        <%- include(view) %>
+    </main>
+    <footer class="text-center mt-4">
+        <p>&copy; 2024 BookedUp</p>
+    </footer>
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

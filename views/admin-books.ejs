@@ -1,0 +1,64 @@
+<%- include('partials/admin-nav') %> <!-- Include admin navigation -->
+
+<div class="container mt-4">
+    <h2>Manage Books</h2>
+
+    <!-- Add Book Form -->
+    <form action="/admin/books/add" method="POST" enctype="multipart/form-data" class="mt-4">
+        <div class="mb-3">
+            <label for="title" class="form-label">Book Title</label>
+            <input type="text" id="title" name="title" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="author" class="form-label">Author</label>
+            <input type="text" id="author" name="author" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="category" class="form-label">Category</label>
+            <input type="text" id="category" name="category" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="price" class="form-label">Price</label>
+            <input type="number" step="0.01" id="price" name="price" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea id="description" name="description" class="form-control" rows="3"></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="image" class="form-label">Book Image</label>
+            <input type="file" id="image" name="image" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary">Add Book</button>
+    </form>
+
+    <!-- Existing Books -->
+    <h3 class="mt-5">Existing Books</h3>
+    <table class="table table-bordered table-hover mt-3">
+        <thead class="table-light">
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% books.forEach(book => { %>
+                <tr>
+                    <td><%= book.title %></td>
+                    <td><%= book.author %></td>
+                    <td><%= book.category %></td>
+                    <td>$<%= book.price.toFixed(2) %></td>
+                    <td>
+                        <a href="/admin/books/edit/<%= book.id %>" class="btn btn-warning btn-sm">Edit</a>
+                        <form action="/admin/books/delete/<%= book.id %>" method="POST" style="display: inline;">
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</div>
