@@ -6,7 +6,7 @@
    This file defines the navigation menu for the admin section of the BookedUp project.
    It provides links to various admin functionalities, including managing books, categories,
    orders, and bulk uploads. The menu ensures easy navigation for admin users.
-   
+
 -->
 
 <header class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
@@ -16,6 +16,14 @@
 
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
+         <!-- Link to Admin Dashboard -->
+        <li class="nav-item">
+          <a href="/admin" class="nav-link">Dashboard</a>
+        </li>
+        <!-- Link to User View of All Books -->
+        <li class="nav-item">
+          <a href="/books" class="nav-link">View All Books</a>
+        </li>
         <li>
           <a href="/auth/logout" class="nav-link">Logout</a>
         </li>
