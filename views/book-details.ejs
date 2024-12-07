@@ -1,0 +1,56 @@
+<!--
+   Name: Kennedy Page
+   Date: 12.07.24
+   CSC 372-01
+
+   This file defines the view for displaying detailed information about a single book in the BookedUp project.
+   It showcases the book's image, title, author, category, price, description, and provides an option to add the book to the cart.
+   
+-->
+    
+
+<div class="container mt-4">
+
+  <div class="row">
+    <div class="col-md-4">
+      <% if (book.covers && book.covers.length > 0) { %>
+   <img
+  src="<%= book.image_url || (book.covers && book.covers[0] ? `https://covers.openlibrary.org/b/id/${book.covers[0]}-L.jpg` : '/images/default.jpg') %>"
+  class="img-fluid"
+  alt="<%= book.title || 'No title available' %>"
+/>
+      <% } else { %>
+      <img src="/images/default.jpg" class="img-fluid" alt="Default cover" />
+      <% } %>
+    </div>
+    <div class="col-md-8">
+      <h1><%= book.title %></h1>
+      <p><strong>Author:</strong> 
+  <%= book.authors 
+    ? book.authors[0]?.name || 'Unknown Author' 
+    : book.author || 'Unknown Author' %>
+</p>
+
+      <p>
+        <strong>ISBN:</strong>
+        <% if (Array.isArray(book.isbn) && book.isbn.length > 0) { %> <%=
+        book.isbn.join(", ") %> <% } else { %> Unavailable <% } %>
+      </p>
+      <p><strong>Published:</strong> <%= book.publish_date %></p>
+      <p><strong>Description:</strong> <%= book.description %></p>
+      <!-- Add to Cart Button -->
+      <form action="/cart/add" method="POST">
+  <% if (book.id) { %>
+    <input type="hidden" name="id" value="<%= book.id %>">
+  <% } %>
+  <% if (book.key) { %>
+    <input type="hidden" name="key" value="<%= book.key %>">
+  <% } %>
+  <input type="hidden" name="title" value="<%= book.title %>">
+  <input type="hidden" name="author" value="<%= book.author || 'Unknown' %>">
+  <input type="hidden" name="price" value="<%= book.price || 0 %>">
+  <button type="submit" class="btn btn-primary">Add to Cart</button>
+</form>
+    </div>
+  </div>
+</div>

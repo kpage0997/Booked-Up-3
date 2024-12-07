@@ -1,4 +1,13 @@
+<!--
+   Name: Kennedy Page
+   Date: 12.07.24
+   CSC 372-01
 
+   This file defines the main dashboard view for the admin section of the BookedUp project.
+   It provides an overview of key metrics and quick links to manage books, categories, orders, 
+   and customers, serving as the central hub for admin users.
+   
+-->
 
 <div class="container mt-4">
     <h1>Admin Dashboard</h1>
@@ -51,3 +60,22 @@
         
     </div>
 </div>
+
+<script>
+    // Check for messages in the query string
+    const urlParams = new URLSearchParams(window.location.search);
+    const message = urlParams.get('message');
+    const error = urlParams.get('error');
+
+    // Display dialog boxes for messages
+    if (message) {
+        alert(`✅ Success: ${message}`);
+    } else if (error) {
+        alert(`❌ Error: ${error}`);
+    }
+
+    // Clear the query parameters from the URL after displaying
+    if (message || error) {
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
+</script>

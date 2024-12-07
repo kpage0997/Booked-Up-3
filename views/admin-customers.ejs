@@ -1,3 +1,14 @@
+<!--
+   Name: Kennedy Page
+   Date: 12.07.24
+   CSC 372-01
+
+   This file defines the view for managing customer information in the admin section of the BookedUp project.
+   It provides a list of registered customers with details such as name, email, registration date, 
+   and total orders, allowing admin users to manage customer accounts.
+
+-->
+
 <h1>Customers with Orders</h1>
 <ul class="list-group">
     <% customers.forEach(customer => { %>
@@ -7,3 +18,9 @@
         </li>
     <% }) %>
 </ul>
+
+<div class="container mt-4 d-flex justify-content-center my-3">
+  <!-- Back to Dashboard Button -->
+  <div class="mb-3">
+    <a href="/admin" class="btn btn-secondary">Back to Dashboard</a>
+  </div>

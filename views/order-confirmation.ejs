@@ -1,7 +1,23 @@
-<div class="container mt-5">
-    <h1 class="text-center text-success">Order Confirmed!</h1>
-    <p class="text-center">Thank you for your purchase. Your order ID is <strong><%= orderDetails[0].order_id %></strong>.</p>
+<!--
+   Name: Kennedy Page
+   Date: 12.07.24
+   CSC 372-01
 
+   This file defines the view for displaying the order confirmation page in the BookedUp project.
+   It shows the details of a successfully placed order, including order ID, items purchased, 
+   quantities, total cost, and order status.
+ 
+-->
+
+<div class="container mt-5">
+   <h1 class="text-center text-success">Order Confirmed!</h1>
+    <% if (orderDetails && orderDetails.length > 0) { %>
+        <p class="text-center">
+            Thank you for your purchase. Your order ID is 
+            <strong><%= orderDetails[0].order_id %></strong>.
+        </p>
+    <% }  %>
+</div>
     <h2 class="mt-4">Order Details</h2>
     <table class="table table-bordered">
         <thead>
@@ -9,21 +25,48 @@
                 <th>Book</th>
                 <th>Quantity</th>
                 <th>Price</th>
+                <th>Total</th>
             </tr>
         </thead>
-        <tbody>
-            <% orderDetails.forEach(item => { %>
-                <tr>
-                    <td><%= item.title %></td>
-                    <td><%= item.quantity %></td>
-                    <td>$<%= item.price.toFixed(2) %></td>
-                </tr>
-            <% }) %>
-        </tbody>
+       <tbody>
+  <% if (orderDetails.items && orderDetails.items.length > 0) { %>
+    <% orderDetails.items.forEach(item => { %>
+      <tr>
+        <td><%= item.book_title || "Unknown Book" %></td>
+        <td><%= item.quantity || 0 %></td>
+        <td>$<%= item.price ? item.price.toFixed(2) : "0.00" %></td>
+        <td>$<%= item.price && item.quantity ? (item.price * item.quantity).toFixed(2) : "0.00" %></td>
+      </tr>
+    <% }) %>
+  <% } else { %>
+    <tr>
+      <td colspan="4" class="text-center">No items found for this order.</td>
+    </tr>
+  <% } %>
+</tbody>
     </table>
 
-    <h3 class="text-end">Total: $<%= orderDetails[0].total.toFixed(2) %></h3>
-    <div class="text-center mt-4">
-        <a href="/" class="btn btn-primary">Continue Shopping</a>
-    </div>
+   
+<div class="text-center mt-4">
+    <a href="/" class="btn btn-primary">Continue Shopping</a>
 </div>
+</div>
+
+<script>
+    // Check for messages in the query string
+    const urlParams = new URLSearchParams(window.location.search);
+    const message = urlParams.get('message');
+    const error = urlParams.get('error');
+
+    // Display dialog boxes for messages
+    if (message) {
+        alert(`✅ Success: ${message}`);
+    } else if (error) {
+        alert(`❌ Error: ${error}`);
+    }
+
+    // Clear the query parameters from the URL after displaying
+    if (message || error) {
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
+</script>

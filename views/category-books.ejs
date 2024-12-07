@@ -1,0 +1,63 @@
+<!--
+   Name: Kennedy Page
+   Date: 12.07.24
+   CSC 372-01
+
+   This file defines the view for displaying books within a specific category in the BookedUp project.
+   It lists books belonging to the selected category, showing details like title, author, and price, 
+   and includes pagination controls for browsing through multiple pages of books.
+   
+-->
+
+<div class="container mt-5">
+  <h2 class="text-center mb-4" style="font-weight: bold;">Books in <%= category %></h2>
+  <hr style="width: 10%; margin: auto; border: 2px solid #007bff;">
+
+  <% if (books.length === 0) { %>
+    <p class="text-center mt-4">No books found in this category.</p>
+  <% } else { %>
+    <!-- Books Grid -->
+    <div class="row">
+      <% books.forEach((book, index) => { %>
+        <div class="col-md-3 mb-4 d-flex flex-column align-items-center">
+          <% if (book.cover_i) { %>
+            <img
+              src="https://covers.openlibrary.org/b/id/<%= book.cover_i %>-M.jpg"
+              alt="<%= book.title %>"
+              class="img-fluid rounded mb-2"
+              style="height: 250px; object-fit: cover;"
+            />
+          <% } else { %>
+            <img
+              src="/images/default-book-cover.jpg"
+              alt="Default Cover"
+              class="img-fluid rounded mb-2"
+              style="height: 250px; object-fit: cover;"
+            />
+          <% } %>
+          <h5 class="text-center"><%= book.title %></h5>
+          <p class="text-muted text-center">
+            <%= book.author_name.length > 0 ? book.author_name.join(", ") : "Unknown Author" %>
+          </p>
+         <a href="/books/<%= book.key.replace('/works/', '') %>" class="btn btn-primary">View Details</a>
+        </div>
+
+        <!-- Row Divider -->
+        <% if ((index + 1) % 4 === 0) { %>
+          </div><div class="row">
+        <% } %>
+      <% }) %>
+    </div>
+
+    <!-- Pagination -->
+    <nav aria-label="Page navigation" class="mt-4">
+      <ul class="pagination justify-content-center">
+        <% for (let i = 1; i <= totalPages; i++) { %>
+          <li class="page-item <%= i === currentPage ? 'active' : '' %>">
+            <a class="page-link" href="/categories/<%= category %>?page=<%= i %>"><%= i %></a>
+          </li>
+        <% } %>
+      </ul>
+    </nav>
+  <% } %>
+</div>

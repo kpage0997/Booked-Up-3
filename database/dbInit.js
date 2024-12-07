@@ -1,5 +1,17 @@
-const Database = require('better-sqlite3');
-const db = new Database('./database/bookedup3.db', { verbose: console.log });
+/**
+ * Name: Kennedy Page
+ * Date: 12.07.24
+ * CSC 372-01
+ *
+ * This file is responsible for initializing the database for the BookedUp project.
+ * It defines the database schema, creates necessary tables, and seeds initial data 
+ * if required. This ensures the database is properly set up and ready for use by the 
+ * application.
+ * 
+ */
+
+const Database = require("better-sqlite3");
+const db = new Database("./database/bookedup3.db", { verbose: console.log });
 
 db.exec(`
 
@@ -52,8 +64,7 @@ CREATE TABLE IF NOT EXISTS order_items (
 
 `);
 
-console.log('Tables created successfully.');
-
+console.log("Tables created successfully.");
 
 // Insert Default Categories
 db.exec(`
@@ -66,14 +77,6 @@ VALUES
     ('Mystery', 5);
 `);
 
-// Insert default books with image URLs
-db.exec(`
-    INSERT OR IGNORE INTO books (title, author, category, price, description, image_url)
-    VALUES
-    ('Book One', 'Author One', 'Fiction', 10.99, 'A fascinating fiction book.', '/images/book-one.jpg'),
-    ('Book Two', 'Author Two', 'Non-Fiction', 15.99, 'An insightful non-fiction book.', '/images/book-two.jpg');
-`);
-
 // Insert Default Users
 db.exec(`
 INSERT OR IGNORE INTO users (username, password, role)
@@ -82,5 +85,7 @@ VALUES
     ('user1', 'password1', 'customer');
 `);
 
-console.log('Default data inserted!');
-console.log('Database initialized!');
+console.log("Default data inserted!");
+console.log("Database initialized!");
+
+module.exports = db;

@@ -1,31 +1,79 @@
 <!DOCTYPE html>
+
+<!--
+   Name: Kennedy Page
+   Date: 12.07.24
+   CSC 372-01
+
+   This file defines the main layout template for the BookedUp project.
+   It serves as a wrapper for all other views, providing a consistent structure 
+   that includes the navigation bar, footer, and dynamic content.
+ 
+-->
+
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BookedUp</title>
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
     <!-- Custom CSS (optional) -->
-    <link rel="stylesheet" href="/css/styles.css">
-</head>
-<body>
-    <header>
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+  <body>
+      <header>
+      <% if (user && user.role === 'admin') { %>
+        <%- include('partials/admin-nav') %>
+      <% } else { %>
         <%- include('partials/nav') %>
+      <% } %>
     </header>
 
-  
-
     <div class="content-wrapper">
-        <main class="container my-4">
-            <%- include(view) %>
-        </main>
+      <!--Flash messages -->
+      <% if (message) { %>
+      <div class="alert alert-success"><%= message %></div>
+      <% } %> <% if (error) { %>
+      <div class="alert alert-danger"><%= error %></div>
+      <% } %>
+      <main class="container my-4"><%- include(view) %></main>
     </div>
-    
+
     <footer class="text-center mt-4">
-        <p>&copy; 2024 BookedUp</p>
+      <p>&copy; 2024 BookedUp</p>
     </footer>
+
+    <script>
+  // Parse query parameters
+  const urlParams = new URLSearchParams(window.location.search);
+  const status = urlParams.get('status');
+  const message = urlParams.get('message');
+
+  <div id="message-dialog" style="display: none;">
+  <p id="message-text"></p>
+  <button onclick="closeDialog()">Close</button>
+</div>
+
+  // Display dialog box if status and message exist
+  if (status && message) {
+    if (status === 'success') {
+      alert(`✅ Success: ${message}`);
+    } else if (status === 'error') {
+      alert(`❌ Error: ${message}`);
+    }
+
+    
+
+    // Clear query parameters to avoid repeated dialogs
+    window.history.replaceState({}, document.title, window.location.pathname);
+  }
+</script>
+
     <!-- Bootstrap JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+  </body>
 </html>

@@ -1,27 +1,55 @@
+<!--
+   Name: Kennedy Page
+   Date: 12.07.24
+   CSC 372-01
+
+   This file defines the view for the checkout process in the BookedUp project.
+   It displays the items in the user's cart, calculates the total price, and provides 
+   a form or button for confirming the order.
+   
+-->
+
 <div class="container mt-4">
     <h2>Checkout</h2>
+    <% if (error) { %>
+        <div class="alert alert-danger"><%= error %></div>
+    <% } %>
+    <% if (message) { %>
+        <div class="alert alert-success"><%= message %></div>
+    <% } %>
     <div class="row">
         <div class="col-md-8">
             <h4>Your Cart</h4>
             <% if (cart.length === 0) { %>
                 <p>Your cart is empty.</p>
             <% } else { %>
-                <table class="table">
+                <table class="table table-striped">
                     <thead>
                         <tr>
                             <th>Title</th>
                             <th>Quantity</th>
                             <th>Price</th>
                             <th>Total</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <% cart.forEach(item => { %>
+                        <% cart.forEach((item, index) => { %>
                             <tr>
                                 <td><%= item.title %></td>
-                                <td><%= item.quantity %></td>
+                                <td>
+                                    <form action="/cart/update/<%= index %>" method="POST" class="d-inline">
+                                        <input type="number" name="quantity" value="<%= item.quantity %>" class="form-control form-control-sm w-50 d-inline" min="1">
+                                        <button type="submit" class="btn btn-sm btn-primary">Update</button>
+                                    </form>
+                                </td>
                                 <td>$<%= item.price.toFixed(2) %></td>
                                 <td>$<%= (item.price * item.quantity).toFixed(2) %></td>
+                                <td>
+                                    <form action="/cart/remove/<%= index %>" method="POST" class="d-inline">
+                                        <button type="submit" class="btn btn-sm btn-danger">Remove</button>
+                                    </form>
+                                </td>
                             </tr>
                         <% }) %>
                     </tbody>
@@ -39,3 +67,21 @@
         </div>
     </div>
 </div>
+<script>
+    // Check for messages in the query string
+    const urlParams = new URLSearchParams(window.location.search);
+    const message = urlParams.get('message');
+    const error = urlParams.get('error');
+
+    // Display dialog boxes for messages
+    if (message) {
+        alert(`✅ Success: ${message}`);
+    } else if (error) {
+        alert(`❌ Error: ${error}`);
+    }
+
+    // Clear the query parameters from the URL after displaying
+    if (message || error) {
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
+</script>

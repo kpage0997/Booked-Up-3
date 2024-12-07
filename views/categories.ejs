@@ -1,10 +1,41 @@
-<h1>Categories</h1>
-<div class="row">
-    <% categories.forEach(category => { %>
-        <div class="col-md-2">
-            <a href="/categories/<%= category.category %>" class="btn btn-outline-primary btn-block my-2">
-                <%= category.category %>
-            </a>
-        </div>
-    <% }) %>
+<!--
+   Name: Kennedy Page
+   Date: 12.07.24
+   CSC 372-01
+
+   This file defines the view for displaying all book categories in the BookedUp project.
+   It lists available categories, allowing users to browse books grouped by specific genres or topics.
+   
+-->
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Books in <%= category %></h2>
+    <div class="row">
+        <% books.forEach(book => { %>
+            <div class="col-md-3 mb-4">
+                <div class="card">
+                    <img src="<%= book.image_url %>" class="card-img-top" alt="<%= book.title %>">
+                    <div class="card-body">
+                        <h5 class="card-title"><%= book.title %></h5>
+                        <p class="card-text"><%= book.author %></p>
+                        <a href="/books/OL2779754W" class="btn btn-primary">View Details</a>
+              
+                </div>
+                </div>
+            </div>
+        <% }) %>
+    </div>
+
+    <!-- Pagination Controls -->
+    <nav aria-label="Page navigation" class="mt-4">
+        <ul class="pagination justify-content-center">
+            <% for (let i = 1; i <= totalPages; i++) { %>
+                <li class="page-item <%= i === currentPage ? 'active' : '' %>">
+                    <a class="page-link" href="/categories/<%= category %>?page=<%= i %>">
+                        <%= i %>
+                    </a>
+                </li>
+            <% } %>
+        </ul>
+    </nav>
 </div>

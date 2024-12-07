@@ -1,4 +1,14 @@
-<!-- admin-customer-orders-detail.ejs -->
+<!--
+   Name: Kennedy Page
+   Date: 12.07.24
+   CSC 372-01
+
+   This file defines the view for displaying detailed information about a specific customer order 
+   in the admin section of the BookedUp project. It provides order details, such as customer information, 
+   items purchased, quantities, total price, and order status.
+
+-->
+
 <h1 class="mb-4">Orders for <%= customer.username %></h1>
 <table class="table">
     <thead>
@@ -24,3 +34,9 @@
         <% }) %>
     </tbody>
 </table>
+
+<div class="container mt-4 d-flex justify-content-center my-3">
+  <!-- Back to Dashboard Button -->
+  <div class="mb-3">
+    <a href="/admin" class="btn btn-secondary">Back to Dashboard</a>
+  </div>

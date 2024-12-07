@@ -132,3 +132,85 @@ CREATE TABLE order_items (
 ### Open Library API Integration
 
 This project integrates the **Open Library API** to fetch book details dynamically. Below are the details on how the API is used:
+
+### Endpoints Used
+
+1. **Search for Books**
+   - Endpoint: `https://openlibrary.org/search.json`
+   - Purpose: To search for books based on a keyword (e.g., title, author).
+   - Example Request:
+     ```
+     GET https://openlibrary.org/search.json?q=harry+potter
+     ```
+   - Example Response:
+     ```json
+     {
+         "numFound": 1234,
+         "docs": [
+             {
+                 "title": "Harry Potter and the Philosopher's Stone",
+                 "author_name": ["J.K. Rowling"],
+                 "cover_i": 123456,
+                 "key": "/works/OL123456W"
+             },
+             ...
+         ]
+     }
+     ```
+
+2. **Get Book Details**
+   - Endpoint: `https://openlibrary.org/works/{work_id}.json`
+   - Purpose: To fetch detailed information about a specific book.
+   - Example Request:
+     ```
+     GET https://openlibrary.org/works/OL123456W.json
+     ```
+   - Example Response:
+     ```json
+     {
+         "title": "Harry Potter and the Philosopher's Stone",
+         "description": "A young wizard embarks on an adventure...",
+         "authors": [
+             {
+                 "key": "/authors/OL12345A"
+             }
+         ],
+         "covers": [123456]
+     }
+     ```
+
+### How It Works
+
+1. **Search Page**:
+   - Users can search for books by entering a title, author, or keyword.
+   - The application sends a request to the Open Library API's search endpoint.
+   - Results are displayed dynamically on the page.
+
+2. **Book Details**:
+   - When a user selects a book, the app fetches detailed information from the Open Library API using the `work_id` from the search results.
+   - The book's details, including title, author, description, and cover image, are displayed.
+
+3. **Cover Images**:
+   - The cover images are fetched using the cover ID from the API response.
+   - URL format for cover images:
+     ```
+     https://covers.openlibrary.org/b/id/{cover_id}-L.jpg
+     ```
+   - Example:
+     ```
+     https://covers.openlibrary.org/b/id/123456-L.jpg
+     ```
+
+### Configuration
+
+1. **Environment Variables**:
+   - Add the following variables to your `.env` file:
+     ```
+     API_BASE_URL=https://openlibrary.org
+     ```
+
+2. **Dependencies**:
+   - Ensure you have installed the following packages:
+     ```bash
+     npm install axios dotenv
+     ```

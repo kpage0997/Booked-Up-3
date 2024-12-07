@@ -1,3 +1,14 @@
+/**
+ * Name: Kennedy Page
+ * Date: 12.07.24
+ * CSC 372-01
+ *
+ * This file contains custom CSS styles for the BookedUp project, complementing 
+ * the Bootstrap framework. It includes specific overrides, additional styling, 
+ * and customizations to tailor the design to the application's unique needs.
+ *
+ */
+
 .card {
     height: 300px; /* Set a fixed height for the container */
     width: 100%; /* Let Bootstrap manage the width */
@@ -161,3 +172,71 @@ header.navbar {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+.navbar form input[type="text"] {
+    border-radius: 25px; /* Rounded edges for the search bar */
+    padding: 0.5rem 1rem; /* Add spacing inside */
+    height: 40px; /* Ensure uniform height */
+}
+
+.navbar form button {
+    border-radius: 25px; /* Match the rounded edges */
+    height: 40px; /* Match input height */
+}
+
+.navbar {
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+}
+
+@media (max-width: 768px) {
+    .navbar form input[type="text"] {
+        width: 250px; /* Adjust the search bar width on smaller screens */
+    }
+}
+
+.navbar-brand {
+    margin-right: 22rem; /* Add spacing to the right of the site name */
+}
+
+.img-thumbnail {
+    max-height: 200px;
+    object-fit: cover;
+}
+h5 {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+
+.alert {
+    margin-top: 1rem;
+    padding: 1rem;
+    border-radius: 0.25rem;
+    text-align: center;
+    font-size: 1rem;
+}
+.alert-success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
+.alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+
+.pagination .active .page-link {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: white;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  color: white;
+  border: none;
+}
+
+.btn-secondary:hover {
+  background-color: #5a6268;
+}

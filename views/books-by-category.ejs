@@ -1,3 +1,14 @@
+<!--
+   Name: Kennedy Page
+   Date: 12.07.24
+   CSC 372-01
+
+   This file defines the view for displaying books filtered by a specific category in the BookedUp project.
+   It lists all books within the selected category, showing details like title, author, price, and image, 
+   and provides pagination for browsing through multiple pages of books.
+   
+-->
+
 <div class="container mt-4">
     <h1 class="text-center mb-4" style="font-weight: 500;">Books in <%= categoryName %></h1>
     <p class="text-center text-muted" style="font-size: 1.1rem;">
@@ -12,7 +23,7 @@
                      style="height: 200px; object-fit: cover;">
                 <h5><%= book.title %></h5>
                 <p class="text-muted">By <%= book.author %></p>
-                <a href="/books/<%= book.id %>" class="btn btn-primary btn-sm mt-2">View Details</a>
+             <a href="/books/<%= book.key.replace('/works/', '') %>" class="btn btn-primary">View Details</a>
             </div>
         <% }) %>
     </div>

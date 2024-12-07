@@ -1,0 +1,67 @@
+<!--
+   Name: Kennedy Page
+   Date: 12.07.24
+   CSC 372-01
+
+   This file defines the view for displaying the results of a book search in the BookedUp project.
+   It lists books that match the user's search query, showing details such as title, author, price, 
+   and an optional image. Pagination controls are provided for navigating through multiple pages of results.
+ 
+-->
+
+<div class="container mt-4">
+  <h2>Search Results for "<%= query %>"</h2>
+  <div class="row d-flex justify-content-start">
+    <% books.forEach((book, index) => { %>
+      <div class="col-md-3 mb-4">
+        <!-- Book Cover -->
+        <img 
+          src="<%= book.image_url %>" 
+          alt="<%= book.title || 'Untitled' %>" 
+          class="img-thumbnail mb-2">
+        
+        <!-- Book Details -->
+        <h5><%= book.title || 'Untitled' %></h5>
+        <p>Author: <%= book.author_name || 'Unknown' %></p>
+        <p>Published: <%= book.first_publish_year || 'Unknown' %></p>
+        <a href="/books/<%= book.key ? book.key.replace('/works/', '') : book.id %>" 
+           class="btn btn-primary">View Details</a>
+      </div>
+
+      <!-- Start a new row every 4 books -->
+      <% if ((index + 1) % 4 === 0) { %>
+        </div><div class="row">
+      <% } %>
+    <% }); %>
+  </div>
+
+  <!-- Pagination -->
+  <nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center">
+      <% const maxPagesToShow = 10; %>
+      <% const startPage = Math.max(1, Math.min(currentPage - Math.floor(maxPagesToShow / 2), totalPages - maxPagesToShow + 1)); %>
+      <% const endPage = Math.min(totalPages, startPage + maxPagesToShow - 1); %>
+
+      <!-- Previous Button -->
+      <% if (currentPage > 1) { %>
+        <li class="page-item">
+          <a class="page-link" href="/books/search?q=<%= query %>&page=<%= currentPage - 1 %>">Previous</a>
+        </li>
+      <% } %>
+
+      <!-- Page Numbers -->
+      <% for (let i = startPage; i <= endPage; i++) { %>
+        <li class="page-item <%= i === currentPage ? 'active' : '' %>">
+          <a class="page-link" href="/books/search?q=<%= query %>&page=<%= i %>"><%= i %></a>
+        </li>
+      <% } %>
+
+      <!-- Next Button -->
+      <% if (currentPage < totalPages) { %>
+        <li class="page-item">
+          <a class="page-link" href="/books/search?q=<%= query %>&page=<%= currentPage + 1 %>">Next</a>
+        </li>
+      <% } %>
+    </ul>
+  </nav>
+</div>

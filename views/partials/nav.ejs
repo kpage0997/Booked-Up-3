@@ -1,3 +1,15 @@
+<!--
+   Name: Kennedy Page
+   Date: 12.07.24
+   CSC 372-01
+
+  This file defines the main navigation bar for the BookedUp project. 
+  It provides links to key sections of the site, such as the homepage, categories, 
+  shopping cart, and user account options. The navigation adapts to user login 
+  status by showing appropriate links for logged-in users or guests.
+   
+-->
+
 <header class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
     <div class="container">
         <!-- Website Title -->
@@ -7,6 +19,19 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+
+             <!-- Search Bar -->
+            <form action="/books/search" method="get" class="d-flex justify-content-center mx-auto">
+                <input 
+                    type="text" 
+                    name="q" 
+                    class="form-control me-2" 
+                    placeholder="Search for books..." 
+                    aria-label="Search" 
+                    required
+                    style="width: 400px;">
+                <button class="btn btn-outline-primary" type="submit">Search</button>
+            </form>
 
         <!-- Navigation Links -->
         <div class="collapse navbar-collapse" id="navbarNav">

@@ -1,4 +1,14 @@
-<%- include('partials/admin-nav') %> <!-- Include admin navigation -->
+<!--
+   Name: Kennedy Page
+   Date: 12.07.24
+   CSC 372-01
+
+   This file defines the view for managing customer orders in the admin section of the BookedUp project.
+   It displays a list of all orders with key details, such as order ID, customer name, date, total amount, 
+   and status, allowing admin users to review and manage orders.
+   
+-->
+
 
 <div class="container mt-4">
     <h2>Customer Orders</h2>
@@ -32,3 +42,22 @@
         <p class="text-muted">No orders found.</p>
     <% } %>
 </div>
+
+<script>
+    // Check for messages in the query string
+    const urlParams = new URLSearchParams(window.location.search);
+    const message = urlParams.get('message');
+    const error = urlParams.get('error');
+
+    // Display dialog boxes for messages
+    if (message) {
+        alert(`✅ Success: ${message}`);
+    } else if (error) {
+        alert(`❌ Error: ${error}`);
+    }
+
+    // Clear the query parameters from the URL after displaying
+    if (message || error) {
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
+</script>

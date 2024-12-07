@@ -1,3 +1,14 @@
+<!--
+   Name: Kennedy Page
+   Date: 12.07.24
+   CSC 372-01
+
+   This file defines the view for the login page in the BookedUp project.
+   It provides a form for users to input their credentials (username and password) 
+   to access their account.
+ 
+-->
+
 <div class="container mt-4">
     <div class="row justify-content-center">
         <div class="col-md-6">
@@ -16,3 +27,22 @@
         </div>
     </div>
 </div>
+
+<script>
+  // Parse query parameters for status and message
+  const urlParams = new URLSearchParams(window.location.search);
+  const status = urlParams.get('status');
+  const message = urlParams.get('message');
+
+  // Display dialog box if status and message exist
+  if (status && message) {
+    if (status === 'success') {
+      alert(`✅ Success: ${message}`);
+    } else if (status === 'error') {
+      alert(`❌ Error: ${message}`);
+    }
+
+    // Clear query parameters to avoid repeated dialogs
+    window.history.replaceState({}, document.title, window.location.pathname);
+  }
+</script>

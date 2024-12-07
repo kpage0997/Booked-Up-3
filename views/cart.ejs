@@ -1,30 +1,79 @@
-<h1 class="mb-4">Your Cart</h1>
-<% if (cart.length === 0) { %>
+<!--
+   Name: Kennedy Page
+   Date: 12.07.24
+   CSC 372-01
+
+   This file defines the view for displaying the shopping cart in the BookedUp project.
+   It lists all items currently in the user's cart, showing details like title, price, quantity, 
+   and total cost. It also provides options to update item quantities, remove items, or proceed to checkout.
+   
+-->
+
+<div class="container mt-4">
+  <h2>Your Cart</h2>
+  <% if (cart.length === 0) { %>
     <p>Your cart is empty.</p>
-<% } else { %>
+  <% } else { %>
     <table class="table">
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Quantity</th>
-                <th>Price</th>
-                <th>Total</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% cart.forEach(item => { %>
-                <tr>
-                    <td><%= item.title %></td>
-                    <td><%= item.quantity %></td>
-                    <td>$<%= item.price.toFixed(2) %></td>
-                    <td>$<%= (item.price * item.quantity).toFixed(2) %></td>
-                    <td>
-                        <a href="/cart/remove/<%= item.id %>" class="btn btn-danger btn-sm">Remove</a>
-                    </td>
-                </tr>
-            <% }) %>
-        </tbody>
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Quantity</th>
+          <th>Price</th>
+          <th>Total</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% cart.forEach((item, index) => { %>
+          <tr>
+            <td><%= item.title %></td>
+            <td>
+              <form action="/cart/update/<%= index %>" method="POST" style="display:inline;">
+                <input
+                  type="number"
+                  name="quantity"
+                  value="<%= item.quantity %>"
+                  min="1"
+                  class="form-control form-control-sm"
+                  style="width: 60px; display:inline-block;"
+                />
+                <button type="submit" class="btn btn-primary btn-sm">Update</button>
+              </form>
+            </td>
+            <td>$<%= item.price.toFixed(2) %></td>
+            <td>$<%= (item.price * item.quantity).toFixed(2) %></td>
+            <td>
+              <form action="/cart/remove/<%= index %>" method="POST" style="display:inline;">
+                <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+              </form>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
     </table>
+    <div class="mt-4">
+    <a href="/books" class="btn btn-secondary">Back to Shopping</a>
     <a href="/cart/checkout" class="btn btn-primary">Proceed to Checkout</a>
-<% } %>
+</div>
+     
+  <% } %>
+</div>
+<script>
+    // Check for messages in the query string
+    const urlParams = new URLSearchParams(window.location.search);
+    const message = urlParams.get('message');
+    const error = urlParams.get('error');
+
+    // Display dialog boxes for messages
+    if (message) {
+        alert(`✅ Success: ${message}`);
+    } else if (error) {
+        alert(`❌ Error: ${error}`);
+    }
+
+    // Clear the query parameters from the URL after displaying
+    if (message || error) {
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
+</script>
